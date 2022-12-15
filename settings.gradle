@@ -1,0 +1,5 @@
+rootProject.name = 'front'
+
+//아래는 로컬용 설정. 서버 배포시 settings_server.gradle 을 이름 변경 후(settings.gradle) 사용함
+include ':common'
+project(':common').projectDir=new File('../common')
