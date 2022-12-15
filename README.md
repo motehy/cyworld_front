@@ -8,3 +8,10 @@ Front port : 8081
 
 **
 cyworld 폴더 > front 폴더 > git link paste
+
+**
+Working directory : $MODULE_WORKING_DIR$
+
+shorten command line : JAR manifest
+
+Active profiles: local
