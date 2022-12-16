@@ -17,9 +17,24 @@ import java.util.List;
 public class HomeController {
 
     @Operation(summary = "intro / 메인")
-    @RequestMapping(value="/", method = RequestMethod.GET)
+    @RequestMapping(value="/", method = {RequestMethod.GET, RequestMethod.POST})
     public String intro(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         return "home";
+    }
+
+    @Operation(summary = "로그인 페이지")
+    @RequestMapping(value="/login", method = RequestMethod.GET)
+    public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        log.info((String) request.getAttribute("loginfl"));
+        return "/login";
+    }
+
+    @Operation(summary = "로그인 성공 페이지")
+    @RequestMapping(value="/login/success", method = {RequestMethod.GET, RequestMethod.POST})
+    public String loginSuccess(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        return "login_success";
     }
 }

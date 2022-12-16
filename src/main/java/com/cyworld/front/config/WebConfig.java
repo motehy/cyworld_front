@@ -27,20 +27,6 @@ import javax.servlet.http.HttpSessionListener;
 import javax.sql.DataSource;
 import java.util.List;
 
-/**
- *
-* <pre>
-* 간략 : .
-* 상세 : .
-* com.coway.core.config
-*   |_ WebConfig.java
-* </pre>
-*
-* @Company : DGIST
-* @Author  : junghee
-* @Date    : 2018. 10. 12. 오전 10:32:32
-* @Version : 1.0
- */
 @Slf4j
 @Configuration
 @EnableWebMvc
