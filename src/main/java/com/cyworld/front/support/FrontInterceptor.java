@@ -36,6 +36,11 @@ public class FrontInterceptor extends HandlerInterceptorAdapter{
 		String refererURL = request.getHeader("REFERER");
 		String _isocd = null;
 		String _checkApp = null;
+
+		if(session.getAttribute("_userInfo") != null && requestURI.startsWith("/login")){
+			response.sendRedirect("/web/mypage");
+		}
+
 		request.setAttribute("_static_domain", "http://localhost:"+request.getLocalPort());
 		/*ST : 파라미터 초기화*/
 		request.setAttribute("_inter_refererURL", "");

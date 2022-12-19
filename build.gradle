@@ -60,9 +60,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation' //validation
     implementation 'org.springframework.mobile:spring-mobile-device:1.1.5.RELEASE' //device info
-//     implementation 'org.springframework.boot:spring-boot-starter-data-redis' //redis cache/session
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis' //redis cache/session
     implementation 'org.springframework.boot:spring-boot-starter-cache'
-//     implementation 'org.springframework.session:spring-session-data-redis'//redis session
+    implementation 'org.springframework.session:spring-session-data-redis'//redis session
+    implementation 'it.ozimov:embedded-redis:0.7.2' //embedded-redis - profile=local
 
     // for QueryDSL
     implementation "com.querydsl:querydsl-jpa"

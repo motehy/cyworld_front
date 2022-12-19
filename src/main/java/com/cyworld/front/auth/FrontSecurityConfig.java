@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Controller;
@@ -47,6 +49,11 @@ public class FrontSecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationFailureHandler;
     }
 
+    @Bean
+    public SessionRegistry sessionRegistry () {
+        return new SessionRegistryImpl();
+    }
+
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
@@ -69,7 +76,10 @@ public class FrontSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login", "/signup").permitAll()   // /login, /signup 은 인증 안해도 접근 가능하도록 설정
-                .antMatchers("/my").authenticated()             // /my 은 인증이 되야함
+                .antMatchers(
+                        "/mypage",
+                       "/web/**"
+                ).authenticated()             // /mypage 은 인증이 되야함
                 .and()
                 .formLogin()                                    // form 을 통한 login 활성화
                 .loginPage("/login")                            // 로그인 페이지 URL 설정 , 설정하지 않는 경우 default 로그인 페이지 노출
@@ -80,5 +90,12 @@ public class FrontSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout");                // 로그아웃 URL 설정
+
+        http.sessionManagement()
+                //.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                .sessionFixation().migrateSession() //악성 사용자를 막기 위해 security에서 매번 인증 요청시마다 session을 재생성
+                .maximumSessions(-1) // 동시 접속 가능수 TODO 5 정도로 변경, -1 무제한
+                .maxSessionsPreventsLogin(false) //true=기존에 동일한 사용자가 로그인한 경우  login 불가 / false=로그인이 되고 기존사용자는 세션만료
+                .sessionRegistry(sessionRegistry());
     }
 }
